@@ -41,23 +41,22 @@ def send_text(to: str, message: str):
     }
 
     try:
+     r = requests.post(
+        API_URL,
+        json=payload,
+        headers=HEADERS,
+        timeout=10,
+    )
 
-        r = requests.post(
-            API_URL,
-            json=payload,
-            headers=HEADERS,
-            timeout=10,
-        )
+     print("STATUS:", r.status_code)
+     print("RESPONSE:", r.text)
 
-        r.raise_for_status()
-
-        return r.json()
+     r.raise_for_status()
+     return r.json()
 
     except requests.exceptions.RequestException as e:
-
-        print(f"WhatsApp send failed: {e}")
-
-        return None
+     print(f"WhatsApp send failed: {e}")
+     return None
 
 
 def send_template(to: str, template_name: str, params: list[str]):
