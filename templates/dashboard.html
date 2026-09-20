@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Haritham Dashboard</title>
+
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-top: 30px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        }
+
+        .card h2 {
+            color: #2e7d32;
+            font-size: 40px;
+            margin: 0;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .section {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        }
+
+        .section h2 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .add-btn {
+            background: #2e7d32;
+        }
+
+        .edit-btn {
+            background: orange;
+        }
+
+        .delete-btn {
+            background: #e53935;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #2e7d32;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f8f8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .empty-msg {
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🌱 Haritham Dashboard</h1>
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ total_orders }}</h2>
+            <p>Today's Orders</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_customers }}</h2>
+            <p>Customers</p>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_products }}</h2>
+            <p>Vegetables</p>
+        </div>
+
+        <div class="card">
+            <h2>₹{{ today_sales }}</h2>
+            <p>Today's Sales</p>
+        </div>
+
+    </div>
+
+    <!-- Vegetables Section -->
+
+    <div class="section">
+
+        <h2>🥬 Today's Vegetable List</h2>
+
+        <a href="/admin/add-vegetable">
+            <button class="btn add-btn">
+                Add Vegetable
+            </button>
+        </a>
+
+        {% if vegetables["items"] %}
+
+        <table>
+
+            <tr>
+                <th>Vegetable</th>
+                <th>Price</th>
+                <th>Unit</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for veg in vegetables["items"] %}
+
+            <tr>
+
+                <td>{{ veg.name }}</td>
+                <td>₹{{ veg.price }}</td>
+                <td>{{ veg.unit }}</td>
+
+                <td>
+
+                    <a href="/admin/edit-vegetable/{{ loop.index0 }}">
+                        <button class="btn edit-btn">
+                            Edit
+                        </button>
+                    </a>
+
+                    <a href="/admin/delete-vegetable/{{ loop.index0 }}"
+                        onclick="return confirm('Delete this vegetable?')">
+
+                        <button class="btn delete-btn">
+                            Delete
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <p class="empty-msg">
+            No vegetables available.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Orders Section -->
+
+    <div class="section">
+
+        <h2>📦 Today's Orders</h2>
+
+        {% if orders %}
+
+        <table>
+
+            <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Total</th>
+            </tr>
+
+            {% for order in orders %}
+
+            <tr>
+                <td>{{ order.customer_name }}</td>
+                <td>{{ order.phone }}</td>
+                <td>₹{{ order.total }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <p class="empty-msg">
+            No orders today.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Customers Section -->
+
+    <div class="section">
+
+        <h2>👥 Customers</h2>
+
+        {% if customers %}
+
+        <table>
+
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+
+            {% for customer in customers %}
+
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <p class="empty-msg">
+            No customers found.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

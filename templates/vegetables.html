@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Vegetable</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+        }
+
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #2e7d32;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Add Vegetable</h1>
+
+        <form method="POST">
+
+            <input type="text" name="name" placeholder="Vegetable Name" required>
+
+            <input type="number" name="price" placeholder="Price" required>
+
+            <input type="text" name="unit" placeholder="Unit (kg, bunch, piece)" required>
+
+            <button type="submit">
+                Add Vegetable
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
