@@ -1,9 +1,10 @@
 import os
 import requests
-
 PHONE_ID = os.getenv("WHATSAPP_PHONE_ID")
 TOKEN = os.getenv("WHATSAPP_TOKEN")
 
+print("PHONE_ID =", PHONE_ID)
+print("TOKEN EXISTS =", bool(TOKEN))
 if not PHONE_ID:
     raise ValueError("WHATSAPP_PHONE_ID missing")
 
